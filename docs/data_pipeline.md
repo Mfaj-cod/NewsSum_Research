@@ -36,15 +36,11 @@ Steps:
 ...
 Implemented in: newssumm_dataset.py
 
-  The loader exposes each sample as:
-
-  cluster_id
-
-  list of document texts
-
-  reference summary
-
-  metadata
+- The loader exposes each sample as:
+- cluster_id
+- list of document texts
+- reference summary
+- metadata
 
 This format is compatible with both encoder-decoder and decoder-only models.
 
@@ -54,20 +50,15 @@ Implemented in: scripts/compute_stats.py
 
 Computes:
 
-  Average documents per cluster
-
-  Average document length (words)
-
-  Average summary length (words)
+- Average documents per cluster
+- Average document length (words)
+- Average summary length (words)
 
 This helps in deciding:
 
-  Max input length
-
-  Truncation strategies
-
-  Model context window requirements
-
+- Max input length
+- Truncation strategies
+- Model context window requirements
 
 ---
 

@@ -38,13 +38,13 @@ data/*.xlsx
 data/*.csv
 data/*.json
 
-# Experiment Outputs (Keep Structure, Not Content)
+# Experiment Outputs (Keeping Structure, Not Content)
 results/**/checkpoint/
 results/**/model*
 results/**/optimizer*
 results/**/scheduler*
 
-# But keep small metadata & summaries
+# keep small metadata & summaries
 !results/**/config.yaml
 !results/**/meta.json
 !results/**/summary.json

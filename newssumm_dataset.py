@@ -1,5 +1,4 @@
 import json
-import os
 from typing import List, Dict
 
 class NewsSummSample:
@@ -25,7 +24,7 @@ class NewsSummDataset:
         self.samples = self._load()
 
     def _load(self):
-        # Expecting a JSONL or JSON file after preprocessing
+        # Expecting a JSONL/JSON file after preprocessing
         if self.data_path.endswith(".json"):
             with open(self.data_path, "r", encoding="utf-8") as f:
                 data = json.load(f)

@@ -16,7 +16,6 @@ from models.baseline_led import LEDSummarizer
 def main(args):
     config = load_config(args.config)
 
-    # Setup
     set_seed(config["training"]["seed"])
     out_dir = prepare_experiment_folder(config)
 
@@ -32,12 +31,12 @@ def main(args):
     with open(config["data"]["train_file"], "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    sample = data[0]  # ONLY ONE SAMPLE
+    sample = data[0]  # Only one sample for this prototype run
 
     documents = [" ".join(sample["documents"])]
     summaries = [sample["summary"]]
 
-    # Load model
+    # Loading model
     model = LEDSummarizer(config["model"]["name"], device)
 
     print("Running ONE training step (CPU-safe)...")
@@ -51,7 +50,7 @@ def main(args):
 
     print("Loss:", loss.item())
 
-    # Save checkpoint
+    # Saving checkpoint
     ckpt_dir = os.path.join(out_dir, "checkpoint")
     os.makedirs(ckpt_dir, exist_ok=True)
     model.save(ckpt_dir)

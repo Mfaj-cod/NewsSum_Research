@@ -1,4 +1,4 @@
-# 📘 Novel Model Specification: Hierarchical Planner–Generator for Multi-Document Summarization
+# Novel Model Specification: Hierarchical Planner–Generator for Multi-Document Summarization
 
 ## 1. Motivation
 

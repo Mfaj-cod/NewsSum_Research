@@ -17,19 +17,18 @@ from models.novel_model import HierarchicalPlannerGenerator
 def main(args):
     config = load_config(args.config)
 
-    # Setup
     set_seed(config["training"]["seed"])
     out_dir = prepare_experiment_folder(config)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    print(f"Starting NOVEL MODEL experiment: {config['experiment']['name']}")
+    print(f"Starting Novel Model experiment: {config['experiment']['name']}")
     print(f"Device: {device}")
     print(f"Outputs will be saved to: {out_dir}")
 
     start_time = time.time()
 
-    # Load ONE sample from dataset (CPU-safe demo)
+    # Load one sample from dataset
     with open(config["data"]["train_file"], "r", encoding="utf-8") as f:
         data = json.load(f)
 
@@ -41,7 +40,7 @@ def main(args):
     attention_mask = torch.ones_like(input_ids).to(device)
     labels = torch.randint(0, 1000, (1, 64)).to(device)
 
-    # Load model
+    # Loading model
     model = HierarchicalPlannerGenerator(
         base_model_name=config["model"]["base_model"]
     ).to(device)

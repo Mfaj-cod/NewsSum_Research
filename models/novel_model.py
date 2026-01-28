@@ -1,4 +1,4 @@
-import torch
+# This script defines a novel hierarchical planner-generator model for abstractive summarization.
 import torch.nn as nn
 from transformers import AutoModel, AutoModelForSeq2SeqLM
 
@@ -69,8 +69,6 @@ class HierarchicalPlannerGenerator(nn.Module):
         super().__init__()
 
         self.base_model_name = base_model_name
-
-        # Loading base encoder first
         self.document_encoder = DocumentEncoder(base_model_name)
 
         # Get true hidden size from model config (e.g., 768 for LED)
@@ -92,17 +90,17 @@ class HierarchicalPlannerGenerator(nn.Module):
         labels: (B, T)
         """
 
-        # 1. Encode documents (prototype: treat as one big document)
+        # 1. Encoding documents (prototype: treat as one big document)
         doc_repr = self.document_encoder(input_ids, attention_mask)
         # doc_repr: (B, T, H)
 
-        # 2. Pool to get a single vector per document (prototype)
+        # 2. Pooling to get a single vector per document (prototype)
         doc_repr_pooled = doc_repr.mean(dim=1, keepdim=True)  # (B, 1, H)
 
-        # 3. Plan over document representations
+        # 3. Planning over document representations
         plan = self.planner(doc_repr_pooled)  # (B, 1, H)
 
-        # 4. For prototype: ignore plan injection and just call generator
+        # 4. For prototype: ignoring plan injection and just call generator
         # (In full version, plan would be injected via cross-attention or prefix tokens)
 
         outputs = self.generator(

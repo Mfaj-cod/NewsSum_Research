@@ -23,7 +23,7 @@ def main(args):
 
         summary_lengths.append(len(summary.split()))
 
-    print("===== NewsSumm Dataset Statistics =====")
+    print("NewsSumm Dataset Statistics -->")
     print(f"Number of clusters: {len(data)}")
     print(f"Avg documents per cluster: {np.mean(num_docs):.2f}")
     print(f"Avg document length (words): {np.mean(doc_lengths):.2f}")
