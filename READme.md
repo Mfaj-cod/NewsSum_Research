@@ -15,19 +15,17 @@ The project is designed to:
 - Propose and scaffold a **novel hierarchical summarization model**
 - Ensure **every experiment is tracked and repeatable**
 
-> This repository is structured like a real research lab project, not a one-off script collection.
-
 ---
 
 ## Repository Structure
-
+```bash
 data/ # Raw and processed datasets
 models/ # Baseline and novel model implementations
 scripts/ # Training, evaluation, preprocessing scripts
 configs/ # YAML configs for each experiment
 results/ # Experiment outputs, logs, checkpoints
 docs/ # Documentation and design specs
-
+```
 
 ---
 
@@ -41,9 +39,9 @@ source venv/bin/activate        # Linux / Mac
 venv\Scripts\activate           # Windows
 ```
 ### Install Dependencies
-
+```bash
 pip install -r requirements.txt
-
+```
 ##  2. Dataset Setup
 Place the dataset file here: 
 ```bash
