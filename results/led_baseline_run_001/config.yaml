@@ -1,0 +1,18 @@
+data:
+  max_input_length: 4096
+  max_target_length: 256
+  train_file: data/newssumm_processed/newssumm_processed.json
+  val_split: 0.01
+experiment:
+  name: led_baseline_run_001
+  output_dir: results/led_baseline_run_001
+model:
+  name: allenai/led-base-16384
+system:
+  device: auto
+training:
+  batch_size: 1
+  epochs: 1
+  fp16: false
+  learning_rate: 2e-5
+  seed: 42

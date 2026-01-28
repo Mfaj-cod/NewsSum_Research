@@ -1,0 +1,21 @@
+experiment:
+  name: "novel_model_run_001"
+  output_dir: "results/novel_model_run_001"
+
+data:
+  train_file: "data/newssumm_processed/newssumm_processed.json"
+  val_split: 0.01
+  max_input_length: 4096
+  max_target_length: 256
+
+model:
+  base_model: "allenai/led-base-16384"
+
+training:
+  epochs: 1
+  batch_size: 1
+  learning_rate: 2e-5
+  seed: 42
+
+system:
+  device: "auto"
