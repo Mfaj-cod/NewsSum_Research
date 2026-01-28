@@ -1,9 +1,9 @@
-# 🧠 NewsSumm Research Benchmark  
+# NewsSumm Research Benchmark  
 **Reproducible Multi-Document Summarization Research Framework**
 
 ---
 
-## 📌 Overview
+## Overview
 
 This repository provides a **clean, reproducible, research-grade codebase** for benchmarking and experimenting with **multi-document summarization models** on the **NewsSumm** dataset (Indian English news).
 
@@ -19,7 +19,7 @@ The project is designed to:
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 data/ # Raw and processed datasets
 models/ # Baseline and novel model implementations
@@ -31,7 +31,7 @@ docs/ # Documentation and design specs
 
 ---
 
-## ⚙️ 1. Environment Setup
+## 1. Environment Setup
 
 ### Create Environment
 
