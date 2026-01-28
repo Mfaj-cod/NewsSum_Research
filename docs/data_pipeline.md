@@ -62,7 +62,7 @@ This helps in deciding:
 
 ---
 
-# Step 5 — Run It (IMPORTANT)
+# Step 5 — Run It
 
 Run:
 
