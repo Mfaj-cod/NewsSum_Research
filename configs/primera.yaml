@@ -10,6 +10,8 @@ experiment:
 
 model:
   name: allenai/PRIMERA
+  family: primera
+  type: seq2seq
 
 system:
   device: auto

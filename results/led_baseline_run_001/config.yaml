@@ -7,7 +7,9 @@ experiment:
   name: led_baseline_run_001
   output_dir: results/led_baseline_run_001
 model:
+  family: led
   name: allenai/led-base-16384
+  type: seq2seq
 system:
   device: auto
 training:

@@ -7,7 +7,9 @@ experiment:
   name: longt5_run_001
   output_dir: results/longt5_run_001
 model:
+  family: longt5
   name: google/long-t5-tglobal-base
+  type: seq2seq
 system:
   device: auto
 training:

@@ -116,8 +116,11 @@ Containing:
 ## 6. Baseline Model (LED)
 LED (Baseline):
 ```bash
-python scripts/train_baseline.py --config configs/led_baseline.yaml
+python scripts/train_baseline.py \
+  --config configs/led_baseline.yaml \
+  --sample 1
 ```
+- Increase the sample size if the RAM allows.
 This will:
 
 - Load LED
@@ -134,15 +137,17 @@ The pipeline is fully implemented and validated via a dry-run.
 ### Run Other Models:
 LongT5:
 ```bash
-python scripts/train_baseline.py --config configs/longt5.yaml
+python scripts/train_baseline.py \
+  --config configs/longt5.yaml \
+  --sample 1
 ```
 FLAN-T5 (XL):
 ```bash
-python scripts/train_baseline.py --config configs/flan_t5_xl.yaml
+python scripts/train_baseline.py --config configs/flan_t5_xl.yaml --sample 1
 ```
 PRIMERA:
 ```bash
-python scripts/train_baseline.py --config configs/primera.yaml
+python scripts/train_baseline.py --config configs/primera.yaml --sample 1
 ```
 ---
 ## 7. Evaluation
@@ -167,7 +172,7 @@ A prototype implementation exists in: models/novel_model.py
 
 Training entry point: 
 ```bash
-python scripts/train_novel.py --config configs/novel_model.yaml
+python scripts/train_novel.py --config configs/novel_model.yaml --sample 1
 ```
 - NOTE: This is a research prototype architecture and currently runs a single-step sanity-check training pass to validate the design and pipeline integration.
 ---

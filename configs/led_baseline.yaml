@@ -10,6 +10,8 @@ experiment:
 
 model:
   name: allenai/led-base-16384
+  family: led
+  type: seq2seq
 
 system:
   device: auto

@@ -10,6 +10,8 @@ data:
 
 model:
   base_model: "allenai/led-base-16384"
+  family: "led"
+  type: "seq2seq"
 
 training:
   epochs: 1

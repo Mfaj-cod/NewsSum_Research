@@ -10,6 +10,8 @@ experiment:
 
 model:
   name: google/flan-t5-xxl
+  family: flan_t5
+  type: seq2seq
 
 system:
   device: auto

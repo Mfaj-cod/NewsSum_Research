@@ -16,6 +16,7 @@ from models.novel_model import HierarchicalPlannerGenerator
 
 def main(args):
     config = load_config(args.config)
+    portion = args.sample
 
     set_seed(config["training"]["seed"])
     out_dir = prepare_experiment_folder(config)
@@ -32,7 +33,9 @@ def main(args):
     with open(config["data"]["train_file"], "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    sample = data[0]
+
+    sample = data[:portion] # Inputed sample for this prototype run
+    """Remove the '[:portion]' after data to train on full data."""
 
     # Fake tokenized inputs (prototype)
     # In real training, this would come from a tokenizer
@@ -73,6 +76,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, required=True)
+    parser.add_argument("--sample", type=int, required=False, default=1, help="No. of rows to use from dataset")
 
     args = parser.parse_args()
     main(args)

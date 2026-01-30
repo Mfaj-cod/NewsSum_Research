@@ -10,6 +10,8 @@ experiment:
 
 model:
   name: mistralai/Mistral-7B-Instruct-v0.2
+  family: mistral
+  type: causal
 
 system:
   device: auto

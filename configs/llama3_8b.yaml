@@ -10,6 +10,8 @@ experiment:
 
 model:
   name: meta-llama/Meta-Llama-3-8B-Instruct
+  family: llama3
+  type: causal
 
 system:
   device: auto
