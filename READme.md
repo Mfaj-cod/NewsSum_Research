@@ -53,10 +53,22 @@ Run:
 python scripts/preprocess.py --input data/NewsSumm_Dataset.xlsx --output data/newssumm_processed
 ```
 ### This will:
+- Clean HTML and noise
+- Normalize text
+- Generate data/newssumm_processed/newssumm_processed.json
 
-Clean HTML and noise
-
-Normalize text
+On Running:
+```bash
+python scripts/clean_dataset.py
+```
+### This will
+1. Remove rows with missing article text or summary.
+2. Remove HTML tags and markup.
+3. Normalize whitespace and formatting.
+4. Remove very short or corrupted entries.
+5. Remove duplicate articles based on article_text.
+6. Standardize column names.
+7. Ultimately generate a cleaned dataset - data/NewsSumm_Cleaned.xlsx
 
 Convert dataset into a unified JSON format:
 ```bash
@@ -77,26 +89,21 @@ Run:
 python scripts/compute_stats.py --data data/newssumm_processed/newssumm_processed.json
 ```
 This reports:
-
-Number of clusters
-Average document length
-Average summary length
-Documents per cluster
+- Number of clusters
+- Average document length
+- Average summary length
+- Documents per cluster
 
 ## 5. Experiment System (Reproducibility)
 All experiments are driven by YAML config files in: configs/
 
-Each run automatically creates a folder in: results/<experiment_name>/
+- Each run automatically creates a folder in: results/<experiment_name>/
 
 Containing:
-
-config.yaml — full config snapshot
-
-meta.json — device + time info
-
-summary.json — metrics + runtime
-
-checkpoint/ — saved model (if applicable)
+- config.yaml — full config snapshot
+- meta.json — device + time info
+- summary.json — metrics + runtime
+- checkpoint/ — saved model (if applicable)
 
 ---
 
@@ -173,18 +180,17 @@ This guarantees:
 ---
 ## 10. Documentation
 
-docs/data_pipeline.md — Dataset format & preprocessing
+- docs/data_cleaning_report - NewsSumm Dataset Cleaning Report
+- docs/data_pipeline.md — Dataset format & preprocessing
+- docs/experiment_tracking.md — Reproducibility system
+- docs/novel_model_spec.md — Novel model design
 
-docs/experiment_tracking.md — Reproducibility system
-
-docs/novel_model_spec.md — Novel model design
+---
 
 ## 11. Notes on Compute Constraints
 
 - Full fine-tuning of LED is not feasible on local CPU
-
 - However, the entire pipeline is implemented and verified
-
 - The system is ready to scale to GPU/cluster environments
 
 ---
