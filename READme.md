@@ -198,14 +198,6 @@ This guarantees:
 
 ---
 
-## 11. Notes on Compute Constraints
-
-- Full fine-tuning of LED is not feasible on local CPU
-- However, the entire pipeline is implemented and verified
-- The system is ready to scale to GPU/cluster environments
-
----
-
 ## 12. Summary
 
 This repository provides:
