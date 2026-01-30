@@ -5,8 +5,8 @@ experiment:
 data:
   train_file: "data/newssumm_processed/newssumm_processed.json"
   val_split: 0.01
-  max_input_length: 4096
-  max_target_length: 256
+  max_input_length: 512
+  max_target_length: 128
 
 model:
   base_model: "allenai/led-base-16384"

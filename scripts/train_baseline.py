@@ -100,14 +100,11 @@ def main(args):
     os.makedirs(ckpt_dir, exist_ok=True)
 
     if model_family == "led":
-        # Custom LED wrapper
         model.save(ckpt_dir)
     else:
-        # HuggingFace models
         model.save_pretrained(ckpt_dir)
         tokenizer.save_pretrained(ckpt_dir)
-
-
+        
     metrics = {
         "loss": float(loss.item()),
         "rouge1": 0.0,

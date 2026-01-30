@@ -1,11 +1,11 @@
 {
   "metrics": {
-    "loss": 9.591662406921387,
+    "loss": 2.777179718017578,
     "rouge1": 0.0,
     "rouge2": 0.0,
     "rougeL": 0.0,
     "bertscore": 0.0
   },
-  "runtime_seconds": 38.13966941833496,
-  "end_time": "2026-01-30 08:51:05.782320"
+  "runtime_seconds": 0.0,
+  "end_time": "2026-01-31T01:37:56.149361"
 }

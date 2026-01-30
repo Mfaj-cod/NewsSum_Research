@@ -1,82 +1,144 @@
-# This script trains a baseline LED model on a single sample from the NewsSumm dataset.
-
-import sys
 import os
+import json
+import argparse
+import sys
+import yaml
+import time
+from datetime import datetime
+
+import torch
+from transformers import AutoTokenizer
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-import argparse
-import time
-import json
-import torch
-
-from scripts.utils import load_config, set_seed, prepare_experiment_folder, finalize_experiment
 from models.novel_model import HierarchicalPlannerGenerator
+
+
+def load_config(path):
+    with open(path, "r") as f:
+        return yaml.safe_load(f)
+
+
+def load_dataset(path, sample=None):
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    if sample is not None:
+        data = data[:sample]
+
+    return data
 
 
 def main(args):
     config = load_config(args.config)
-    portion = args.sample
 
-    set_seed(config["training"]["seed"])
-    out_dir = prepare_experiment_folder(config)
+    run_name = config["experiment"]["name"]
+    out_dir = os.path.join("results", run_name)
+    os.makedirs(out_dir, exist_ok=True)
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"Starting Novel Model experiment: {run_name}")
 
-    print(f"Starting Novel Model experiment: {config['experiment']['name']}")
-    print(f"Device: {device}")
-    print(f"Outputs will be saved to: {out_dir}")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print("Device:", device)
+    print("Outputs will be saved to:", out_dir)
 
-    start_time = time.time()
+    # Load dataset
+    dataset = load_dataset(
+        config["data"]["train_file"],
+        sample=args.sample
+    )
 
-    # Load one sample from dataset
-    with open(config["data"]["train_file"], "r", encoding="utf-8") as f:
-        data = json.load(f)
+    # Extract documents and summaries
+    documents = [" ".join(ex["documents"]) for ex in dataset]
+    summaries = [ex["summary"] for ex in dataset]
 
+    # Tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(
+        config["model"]["base_model"],
+        use_fast=True
+    )
 
-    sample = data[:portion] # Inputed sample for this prototype run
-    """Remove the '[:portion]' after data to train on full data."""
-
-    # Fake tokenized inputs (prototype)
-    # In real training, this would come from a tokenizer
-    input_ids = torch.randint(0, 1000, (1, 128)).to(device)
-    attention_mask = torch.ones_like(input_ids).to(device)
-    labels = torch.randint(0, 1000, (1, 64)).to(device)
-
-    # Loading model
+    planner_hidden_size = config["model"].get("planner_hidden_size", None)
+    # Model
     model = HierarchicalPlannerGenerator(
-        base_model_name=config["model"]["base_model"]
+        base_model_name=config["model"]["base_model"],
+        planner_hidden_size=planner_hidden_size
     ).to(device)
 
+    model.train()
+
+    # Tokenization (REAL DATA)
+    inputs = tokenizer(
+        documents,
+        truncation=True,
+        padding=True,
+        max_length=config["data"]["max_input_length"],
+        return_tensors="pt"
+    )
+
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+
+    labels = tokenizer(
+        text_target=summaries,
+        truncation=True,
+        padding=True,
+        max_length=config["data"]["max_target_length"],
+        return_tensors="pt"
+    ).input_ids.to(device)
+
+    # ONE prototype training step
     print("Running ONE prototype training step for Novel Model...")
 
     outputs = model(
-        input_ids=input_ids,
-        attention_mask=attention_mask,
+        input_ids=inputs["input_ids"],
+        attention_mask=inputs["attention_mask"],
         labels=labels
     )
 
     loss = outputs["loss"]
-
     print("Loss:", loss.item())
 
-    metrics = {
-        "loss": float(loss.item()),
-        "rouge1": 0.0,
-        "rouge2": 0.0,
-        "rougeL": 0.0,
-        "bertscore": 0.0
+    # Save checkpoint
+    ckpt_dir = os.path.join(out_dir, "checkpoint")
+    os.makedirs(ckpt_dir, exist_ok=True)
+
+    # Save generator.model + tokenizer for evaluation compatibility
+    model.generator.model.save_pretrained(ckpt_dir)
+    tokenizer.save_pretrained(ckpt_dir)
+
+    # Save metadata
+    summary = {
+        "metrics": {
+            "loss": loss.item(),
+            "rouge1": 0.0,
+            "rouge2": 0.0,
+            "rougeL": 0.0,
+            "bertscore": 0.0
+        },
+        "runtime_seconds": 0.0,
+        "end_time": datetime.now().isoformat()
     }
 
-    finalize_experiment(out_dir, metrics, start_time)
+    with open(os.path.join(out_dir, "summary.json"), "w") as f:
+        json.dump(summary, f, indent=2)
+
+    with open(os.path.join(out_dir, "config.yaml"), "w") as f:
+        yaml.dump(config, f)
+
+    with open(os.path.join(out_dir, "meta.json"), "w") as f:
+        json.dump({
+            "model": "Hierarchical Planner-Generator (HPG)",
+            "base_model": config["model"]["base_model"],
+            "samples_used": len(dataset),
+            "device": str(device)
+        }, f, indent=2)
 
     print("Novel model prototype run complete.")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, required=True)
-    parser.add_argument("--sample", type=int, required=False, default=1, help="No. of rows to use from dataset")
-
+    parser.add_argument("--config", required=True)
+    parser.add_argument("--sample", type=int, default=None, help="No. of rows to use from dataset")
     args = parser.parse_args()
+
     main(args)

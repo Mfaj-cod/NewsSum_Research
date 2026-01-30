@@ -1,6 +1,6 @@
 data:
-  max_input_length: 4096
-  max_target_length: 256
+  max_input_length: 512
+  max_target_length: 64
   train_file: data/newssumm_processed/newssumm_processed.json
   val_split: 0.01
 experiment:

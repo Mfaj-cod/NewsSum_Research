@@ -12,7 +12,7 @@ def main(args):
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     run_dir = args.run_dir
-    ckpt_dir = os.path.join(run_dir, "checkpoint")
+    ckpt_dir = os.path.abspath(os.path.join(run_dir, "checkpoint"))
 
     print(f"Loading model from {ckpt_dir}")
 

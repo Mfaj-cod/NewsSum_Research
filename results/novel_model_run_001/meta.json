@@ -1,4 +1,6 @@
 {
-  "start_time": "2026-01-30 08:50:27.641797",
+  "model": "Hierarchical Planner-Generator (HPG)",
+  "base_model": "allenai/led-base-16384",
+  "samples_used": 1,
   "device": "cpu"
 }
