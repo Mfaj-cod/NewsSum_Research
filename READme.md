@@ -57,19 +57,6 @@ python scripts/preprocess.py --input data/NewsSumm_Dataset.xlsx --output data/ne
 - Normalize text
 - Generate data/newssumm_processed/newssumm_processed.json
 
-On Running:
-```bash
-python scripts/clean_dataset.py
-```
-### This will
-1. Remove rows with missing article text or summary.
-2. Remove HTML tags and markup.
-3. Normalize whitespace and formatting.
-4. Remove very short or corrupted entries.
-5. Remove duplicate articles based on article_text.
-6. Standardize column names.
-7. Ultimately generate a cleaned dataset - data/NewsSumm_Cleaned.xlsx
-
 Convert dataset into a unified JSON format:
 ```bash
 {
@@ -83,6 +70,25 @@ Output:
 ```bash
 data/newssumm_processed/newssumm_processed.json
 ```
+
+On Running:
+```bash
+python scripts/clean_dataset.py
+```
+### This will
+1. Remove rows with missing article text or summary.
+2. Remove HTML tags and markup.
+3. Normalize whitespace and formatting.
+4. Remove very short or corrupted entries.
+5. Remove duplicate articles based on article_text.
+6. Standardize column names.
+7. Ultimately generate a cleaned dataset - data/NewsSumm_Cleaned.xlsx
+
+Output:
+```bash
+data/NewsSumm_Cleaned.xlsx
+```
+---
 ## 4. Dataset Statistics
 Run: 
 ```bash
