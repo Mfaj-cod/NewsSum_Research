@@ -1,0 +1,27 @@
+data:
+  train_file: data/newssumm_processed/newssumm_processed.json
+  max_input_length: 4096
+  max_target_length: 256
+  val_split: 0.01
+
+experiment:
+  name: primera_run_001
+  output_dir: results/primera_run_001
+
+model:
+  name: allenai/PRIMERA
+  family: primera
+  type: seq2seq
+
+system:
+  device: auto
+
+training:
+  seed: 42
+  batch_size: 1          # IMPORTANT
+  grad_accum_steps: 8    # effective batch = 8
+  learning_rate: 2e-5
+  fp16: true
+  max_steps: 1000
+  gradient_accumulation_steps: 8  # makes effective batch = 8
+  max_train_samples: 100

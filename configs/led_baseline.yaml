@@ -1,0 +1,26 @@
+data:
+  train_file: data/newssumm_processed/newssumm_processed.json
+  max_input_length: 512
+  max_target_length: 64
+  val_split: 0.01
+
+experiment:
+  name: led_baseline_run_001
+  output_dir: results/led_baseline_run_001
+
+model:
+  name: allenai/led-base-16384
+  family: led
+  type: seq2seq
+
+system:
+  device: auto
+
+training:
+  batch_size: 1
+  epochs: 1
+  fp16: false
+  learning_rate: 2e-5
+  seed: 42
+  gradient_accumulation_steps: 8  # makes effective batch = 8
+  max_train_samples: 100

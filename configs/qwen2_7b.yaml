@@ -1,0 +1,26 @@
+data:
+  train_file: data/newssumm_processed/newssumm_processed.json
+  max_input_length: 4096
+  max_target_length: 256
+  val_split: 0.01
+
+experiment:
+  name: qwen2_7b_run_001
+  output_dir: results/qwen2_7b_run_001
+
+model:
+  name: Qwen/Qwen2-7B-Instruct
+  family: qwen2
+  type: causal
+
+system:
+  device: auto
+
+training:
+  batch_size: 1
+  epochs: 1
+  fp16: true
+  learning_rate: 1e-5
+  seed: 42
+  gradient_accumulation_steps: 8  # makes effective batch = 8
+  max_train_samples: 100
