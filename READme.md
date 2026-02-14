@@ -194,8 +194,6 @@ python scripts/train_baseline.py \
   --config configs/flan_t5_xl.yaml
 ```
 
-e. 
-
 # 9. Novel Model – Hierarchical Planner–Generator (HPG)
 HPG separates summarization into two explicit stages:
 
