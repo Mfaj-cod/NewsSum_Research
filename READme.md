@@ -84,6 +84,10 @@ python -m venv venv
 Linux / Mac: source venv/bin/activate
 Windows: venv\Scripts\activate
 ```
+## Add Huggingface token in the environment
+```bash
+HF_TOKEN=your_hf_token_here
+```
 ## Install Dependencies
 ```bash
 pip install -r requirements.txt
