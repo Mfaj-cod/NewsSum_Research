@@ -1,7 +1,5 @@
 # This script defines a baseline LED-based summarization model.
 from transformers import LEDTokenizer, LEDForConditionalGeneration
-import torch
-
 
 class LEDSummarizer:
     def __init__(self, model_name: str, device: str):

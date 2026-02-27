@@ -1,7 +1,6 @@
 import argparse
 import json
 import os
-from langsmith import evaluate
 import torch
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM

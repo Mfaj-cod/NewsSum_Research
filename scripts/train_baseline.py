@@ -4,7 +4,6 @@ import os
 import json
 import yaml
 import argparse
-from datetime import datetime
 
 import torch
 from torch.utils.data import Dataset, DataLoader

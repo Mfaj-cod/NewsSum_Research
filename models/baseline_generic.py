@@ -1,6 +1,5 @@
 from transformers import (
     AutoTokenizer,
-    AutoConfig,
     AutoModelForSeq2SeqLM,
     AutoModelForCausalLM
 )

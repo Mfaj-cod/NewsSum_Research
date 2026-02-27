@@ -74,14 +74,13 @@ class HierarchicalPlannerGenerator(nn.Module):
         self.base_model_name = base_model_name
         self.document_encoder = DocumentEncoder(base_model_name)
 
-        # Get true hidden size from model config (e.g., 768 for LED)
+        # Get true size from model config (e.g., 768 for LED)
         hidden_size = self.document_encoder.encoder.config.hidden_size
 
-        print(f"[HPG] Using hidden size from backbone: {hidden_size}")
+        print(f"[HPG] Using size from backbone: {hidden_size}")
 
         # Planner always matches backbone dimension
         self.planner = ContentPlanner(hidden_size)
-
         self.generator = SummaryGenerator(base_model_name)
 
     def forward(self, input_ids, attention_mask, labels=None):
@@ -89,11 +88,10 @@ class HierarchicalPlannerGenerator(nn.Module):
         # Encode tokens
         doc_repr = self.document_encoder(input_ids, attention_mask)   # (B,T,H)
 
-        # Pool segments -> plan tokens
+        # Pool segments --> plan tokens
         pooled = doc_repr.mean(dim=1, keepdim=True)                   # (B,1,H)
         plan = self.planner(pooled)                                   # (B,1,H)
 
-        # REAL INJECTION
         # Prepend plan as prefix embedding
         plan_mask = torch.ones(plan.size()[:2], device=attention_mask.device)
 
