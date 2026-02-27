@@ -1,4 +1,4 @@
-# NewsSumm – Hierarchical Planner–Generator (HPG)
+# Beyond Flat Attention: Hierarchical Content Planning for Multi-Document Abstractive News Summarization
 
 **Reproducible Multi-Document Summarization Research Framework**  
 Indian English News | Long-Context Modeling | Hierarchical Planning
@@ -38,7 +38,7 @@ scripts/
 ├── clean_dataset.py
 ├── preprocess.py
 ├── compute_stats.py
-├── prompted_eval_all.py
+├── prompted_eval.py
 ├── train_baseline.py
 ├── train_novel.py
 ├── utils.py
